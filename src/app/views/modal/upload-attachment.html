@@ -1,0 +1,28 @@
+<!-- Modal content-->
+<div>
+  <div class="modal-panel" style="padding: 0px">
+    <div class="modal-header">
+      <button type="button" class="close" ng-click="cancel();"><img src="images/close.png" alt="close" /></button>
+      <h4 class="modal-title">Attachments</h4>
+    </div>
+    <div class="modal-body">
+      <div>
+        Drop File:
+        <div ngf-drop ngf-select ng-model="files" class="drop-box"
+             ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+             accept="image/*,application/pdf,*/*">Drop files here or click to upload</div>
+        <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+        <input type="checkbox"  ng-model="private">Private attachment</input>
+        <ul>
+          <li ng-repeat="f in files" style="font:smaller">{{f.name}}</li>
+        </ul>
+      </div>
+
+      <div class="container"></div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" ng-click="upload(files)">Upload</button>
+    <a class="cancel" href="" ng-click="cancel();">Cancel</a>
+  </div>
+</div>

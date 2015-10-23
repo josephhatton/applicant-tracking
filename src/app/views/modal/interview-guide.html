@@ -1,0 +1,32 @@
+<!-- Modal content-->
+<div>
+  <div class="modal-panel">
+    <div class="modal-header">
+      <h4 class="modal-title">Interview Guide for {{nameTitle}}</h4>
+      <div style="width: 100%;text-align: center;"><img ng-show="showLoading" src="images/loading-iconB-32.gif"></div>
+    </div>
+    <div class="modal-body">
+      <div class="scrollable-reporting">
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <div id="interview-guide"></div>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-left: 20px; padding-top: 20px" dir="">
+                <span dir=""  ng-repeat="guide in interviewguide">
+                  <b><br>{{guide.name}}<br></b><br>
+                  <table>
+                    <tr ng-repeat="traits in guide.guide"><td>{{traits.sequence}}.&nbsp;&nbsp;</td><td>{{traits.question}}</td></tr>
+                  </table>
+              </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

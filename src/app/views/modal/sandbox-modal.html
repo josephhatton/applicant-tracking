@@ -1,0 +1,92 @@
+<div class="modal-header" style="border-bottom: 1px solid #80c34f;
+      background-color: #80c34f;
+      border-color: #80c34f;">
+  <button type="button" class="close" data-dismiss="modal"  ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+<ul class="small sandBoxtool" id="sandbox">
+  <div selectedkralabels="9,28,30,13,40">
+    <ul>
+      <li class="area avaliableKra">
+        <div>
+          <p class="info"><em></em>You can click on the drop down in order to select alternate KRA</p>
+          <h4><strong>Available KRA</strong></h4>
+          <ul ui-on-Drop="onDrop($event,$data,sandboxKra)">
+            <li ui-draggable="true" drag="kraItem"
+                on-drop-success="dropSuccessHandler($event,$index,sandboxKra)"
+                ng-repeat="kraItem in sandboxKra track by $index">
+              {{kraItem}}
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="area selectedKra">
+        <div >
+          <p class="info"><em></em>You can drag items to change their order</p>
+          <h4><strong>Selected KRA</strong></h4>
+          <ul ui-on-Drop="onDrop($event,$data,rescoreKra)"style="width: 250px;height: 200px">
+            <li ui-draggable="true" drag="potentialKra"
+                on-drop-success="dropSuccessHandler($event,$index,rescoreKra)"
+                ng-repeat="potentialKra in rescoreKra track by $index">
+              {{potentialKra}}
+            </li>
+          </ul>
+
+        </div>
+      </li>
+      <li class="area slider">
+        <div kraweight="25" selfratingweight="25" experienceweight="25" firststepweight="25"><p class="info"><em></em>You can drag the handles to change the weights range</p>
+          <h4><strong>Weights</strong></h4>
+          <div class="inputs">
+            <div class="kra">
+              <label>KRA
+                <input type="text" value="{{kra.value}}" ng-model="kra.value" style="background-color: #6aba93;color: #ffffff;width:30px">
+              </label>
+              <div style="display: inline-flex">
+                0<input type="range" min="0" max="100" step="5" ng-model="kra.value">100
+              </div>
+            </div>
+            <div class="selfRating">
+              <label>SelfRating
+                <input type="text" value="{{rating.value}}" ng-model="rating.value" style="background-color: #d4e06c;color: #ffffff;width:30px">
+              </label>
+              <div style="display: inline-flex">
+                0<input type="range" min="0" max="100" step="5" ng-model="rating.value">100
+              </div>
+            </div>
+            <div class="experience">
+              <label>Experience</label>
+              <input type="text" value="{{experience.value}}" ng-model="experience.value" style="background-color: #7ac7d8;color: #ffffff;width:30px">
+              <div style="display: inline-flex">
+                0<input type="range" min="0" max="100" step="5" ng-model="experience.value">100
+              </div>
+            </div>
+            <div class="firstSteps">
+              <label>First Step</label>
+              <input type="text" value="{{firststep.value}}" ng-model="firststep.value" style="background-color: #5088ba;color: #ffffff;width:30px">
+              <div style="display: inline-flex">
+                0<input type="range" min="0" max="100" step="5" ng-model="firststep.value">100
+              </div>
+            </div>
+          </div>
+          <div class="rangeContainer">
+            <table class="range" id="weightsRange">
+              <tbody><tr>
+                <td class="kra" style="height: 58px;"></td>
+                <td class="selfRating" style="height: 58px;"></td>
+                <td class="experience" style="height: 58px;"></td>
+                <td class="firstSteps" style="height: 58px;"></td>
+              </tr>
+              </tbody></table>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <div>
+      <div style="display: inline-flex; float: right">
+        <a class="cancel" ng-click="cancel();">cancel</a>
+        <a class="rescoreBtn" ng-click="rescore();"></a>
+        <a class="continueBtn"></a>
+      </div>
+    </div>
+  </div>
+</ul>

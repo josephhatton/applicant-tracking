@@ -1,0 +1,67 @@
+<!-- Modal content-->
+<div>
+  <div class="modal-panel">
+    <div class="modal-header">
+      <button type="button" class="close" ng-click="cancel();"><img src="images/close.png" alt="close" /></button>
+      <h4 class="modal-title">Forward Candidate</h4>
+    </div>
+    <div class="modal-body">
+      <form name="forwardForm" novalidate>
+            <table>
+              <tr><td style="height: 40px" colspan="4">
+                <div collapse="collapseSentWarning">
+                  <alert type="warning">Email Forwarded!</alert>
+                </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label>First name:</label>
+                </td>
+                <td><input  type="text" ng-model="forwardForm.firstName" placeholder="First Name">
+                </td>
+                <td>
+                  <label>Last name:</label>
+                </td>
+                <td><input class="btext" type="text" ng-model="forwardForm.lastName" placeholder="Last Name"></td>
+              </tr>
+              <tr>
+                <td>
+                    <label>Email:</label>
+                </td>
+                <td><input class="btext" type="text" ng-model="forwardForm.email" placeholder="Email"></td>
+                <td>
+                      <label>Expires after:</label>
+                </td>
+                <td>
+                  <select class="bselect" ng-model="forwardForm.expires">
+                    <option value="WEEK">1 Week</option>
+                    <option value="MONTH">1 Month</option>
+                    <option value="YEAR">1 YEar</option>
+                    <option value="NEVER">Never</option>
+                  </select>
+                </td>
+              </tr>
+              <tr><td>&nbsp;</td></tr>
+              <tr>
+                <td colspan="4">
+                  <table width="100%" class="table table-striped  table-hover">
+                    <tr ng-repeat="doc in forwardDocuments">
+                      <td style="vertical-align: top;">
+                        <input type="checkbox" ng-model="doc.checked">
+                      </td>
+                      <td>
+                        {{doc.name}}
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer"> <a class="cancel" href="" ng-click="cancel();">Cancel</a>
+    <button type="button" class="btn btn-success" ng-click="forward(forwardForm);"> <i><img src="images/icon-send.png" alt="" /></i> &nbsp;  Forward</button>
+  </div>
+</div>

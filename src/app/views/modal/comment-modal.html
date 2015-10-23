@@ -1,0 +1,36 @@
+<!-- Modal content-->
+<div>
+  <div class="modal-panel">
+    <div class="modal-header">
+      <button type="button" class="close" ng-click="cancel();"><img src="images/close.png" alt="close" /></button>
+      <h4 class="modal-title">Comments:&nbsp;{{jobTitle}}</h4>
+    </div>
+    <div class="modal-body">
+      <form name="commentForm" novalidate>
+        <div collapse="collapseAddedWarning">
+          <alert type="warning">Comment Added!</alert>
+        </div>
+        <table>
+          <tr>
+            <td><textarea class="field span12" ng-model="commentForm.comment" required cols="71" rows="6" placeholder="Enter a Comment"></textarea></td>
+          </tr>
+          <tr>
+            <td><button type="button" class="btn btn-success pull-right mt10" ng-disabled="!commentForm.$valid" ng-click="addComment(commentForm)"> <i><img src="images/icon-add.png" alt="" /></i> Add</button></td>
+          </tr>
+        </table>
+        <h4 class="modal-title bdr-bottom">Comment History</h4>
+        <div class="scrollable-comments">
+          <div class="panel panel-default" ng-repeat="comment in comments">
+            <div class="panel-heading">
+              <h4 class="pull-left">{{comment.user}}</h4>
+              <h4 class="pull-right"><time class="comment-date" datetime="{{comment.created}}" style="float: right"><i class="fa fa-clock-o"></i>&nbsp;{{comment.created | date:"MM/dd/yyyy 'at' h:mma"}}</time></h4>
+              <div class="clearfix"></div>
+            </div>
+            <div class="panel-body">{{comment.comment}} </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer"> <a class="cancel" href="" ng-click="cancel();">Cancel</a> </div>
+</div>

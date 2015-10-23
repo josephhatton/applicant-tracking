@@ -1,0 +1,178 @@
+
+<header id="navigation">
+  <div class="navMenu">
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner applicationHeader">
+        <div class="container">
+          <div class="span10">
+            <ul>
+              <li class="advhelp"><span><a href="#search" style="color: #FFFFFF;">Advanced Search</a></span></li>
+              <li class="help dropdown" style="text-align: center">
+                <a data-toggle="dropdown" style="color: #FFFFFF;">Help<span class="caret" style="margin-top: 13px"></span></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a>
+                      <span class="header" ng-controller="ModalCtrl" ng-click="openModalHelp()" style="color: #0e0e0e;">Help topics</span><span class="desc"></span>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a style="color: #0e0e0e;">
+                      <span class="header" ng-controller="ModalCtrl" ng-click="openModalHelp()">More Help</span>
+                      <span class="desc"></span>
+                    </a>
+                  </li>
+                </ul>
+                <div class="seperator"></div>
+              </li>
+              <li class="admin"><span>Admin</span><div class="seperator"></div></li>
+
+              <li class="recentItemsContainer lists">
+                <div class="btn-group" ng-controller="DashboardCtrl">
+                  <a  class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="padding-top: 1px; ">
+                    Recent Items
+                    <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu" style="background-color: grey">
+                    <li><span data-id="477" data-type="POSITION" title="Curator - Entomology">Curator - Entomology</span></li>
+                    <li><span data-id="1898" data-type="POSITION" title="HR Manager">HR Manager</span></li>
+                    <li><span data-id="2290" data-type="POSITION" title="additional attachment">additional attachment</span></li>
+                    <li><span data-id="2885" data-type="POSITION" title="Arcade Operator- DH - Internal">Arcade Operator- DH - Internal</span></li>
+                    <li><span data-id="2922" data-type="POSITION" title="Cafe Employee - Duplicate">Cafe Employee - Duplicate</span></li>
+                    <li><span data-id="2953" data-type="POSITION" title="Chain Wine Sales Representative - Duplicate">Chain Wine Sales Representative - Duplicate</span></li>
+                    <li><span data-id="2983" data-type="POSITION" title="Business Analyst Test 2015 - Duplicate">Business Analyst Test 2015 - Duplicate</span></li>
+                    <li><span data-id="2988" data-type="POSITION" title="Accounts Payable Specialist-K - Duplicate">Accounts Payable Specialist-K - Duplicate</span></li>
+                    <li><span data-id="2997" data-type="POSITION" title="ASR- Internal - Duplicate">ASR- Internal - Duplicate</span></li>
+                  </ul>
+                </div>
+                <div class="seperator"></div>
+              </li>
+              <li class="listItemsContainer lists">
+                <div class="btn-group" ng-controller="DashboardCtrl">
+                  <a  class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="padding-top: 1px; ">
+                    List<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li ng-repeat="watch in watchList;"><a href=""><strong>{{watch.name}}</strong></a>
+                      <ul ng-repeat="candidate in watch.candidates;" style="margin-right: 40px">
+                        <li><a href="">{{candidate.name}}</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="seperator"></div>
+              </li>
+              <li class="user">
+                <div class="btn-group">
+                  <a data-toggle="dropdown" style="color: #FFFFFF;">{{username}}<span class="caret"></span></a>
+                  <ul class="dropdown-menu" style="min-width: 35px">
+                    <li>
+                      <a ng-controller="LoginCtrl" ng-click="logout();">
+                        <span >Logout</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="seperator"></div>
+              </li>
+
+            </ul>
+          </div>
+
+
+
+
+
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container" style="min-width: 1024px;">
+      <div class="row-fluid">
+        <div class="span3" style="float:left; width: 200px;">
+          <a class="logo"></a>
+        </div>
+        <div class="seperator"></div>
+        <div class="span9" style="max-width: 490px;margin: 0;padding: 0;float: left;">
+          <div class="actions">
+            <div class="span12 links">
+              <ul class="pages">
+                <li class="page dashboard">
+                  <ul class="nav nav-pills">
+                    <li class="dropdown">
+                      <a ng-class="isActive('/dashboard')" href="#/dashboard">Dashboard</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="page candidates">
+                  <ul class="nav nav-pills">
+                    <li class="dropdown">
+                      <a ng-class="isActive('/jobopenings')" href="#/jobopenings">Candidates</a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="page orderwizard">
+                  <ul class="nav nav-pills">
+                    <li class="dropdown">
+                      <a ng-class="isActive('/orderwizard')" href="#/orderwizard">Order Wizard</a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="page positions">
+                  <ul class="nav nav-pills">
+                    <li class="dropdown">
+                      <a data-toggle="dropdown">Positions <b class="caret" style="border-top-color: #7C70D3;"></b></a>
+                      <ul class="positionsPopup dropdown-menu">
+                        <li>
+                          <a href="#/position-templates" ng-class="isActive('/position-templates')">
+                            <img src="images/positionTemplate.png">
+                            <span class="header">Template</span><span class="desc">Manage and administrate your position templates</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#/requisitions" ng-class="isActive('/requisitions')">
+                            <img src="images/jobOpenings.png"><span class="header">Job Openings</span>
+                            <span class="desc">Manage and administrate your job openings basedon your position templates</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="span3">
+          <input type="text" class="searchBox pull-right" placeholder="Search...">
+          <div class="recentItemsContainer">
+            <div id="searchResults" style="float: left;">
+              <div class="recentItems">
+                <ul class="groups"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- Help Modal -->
+    <div ng-controller="ModalCtrl">
+      <script type="text/ng-template" id="helpModal.html">
+        <div ng-include="'views/modal/help-modal.html'"></div>
+      </script>
+    </div>
+  </div>
+</header>

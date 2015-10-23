@@ -1,0 +1,451 @@
+<div ng-include src="'views/nav.html'" xmlns="http://www.w3.org/1999/html"></div>
+
+<div class="alert alert-danger" ng-show="error" role="alert">
+  <a href="#" class="alert-link">A Server Error has occurred.  If this continues, please contact your Kiosite Administrator.</a>
+</div>
+
+<div style="width: 100%; text-align: center;margin-top: 1%;"><img ng-show="showLoading" src="images/loading-iconB-32.gif"></div>
+<div class="row" style="margin-left: 2%; margin-top: 2%;margin-right: 2%;">
+<!----------------------------------------------------------------- FIRST COLUMN ------------------------------------------->
+  <div class="col-md-5">
+    <div style="padding-bottom: 23px">
+      {{positionTitle}}:
+        <a ng-click="previousApplicant(key);">previous</a> ( {{key}} of {{applicantCount}} ) <a ng-click="nextApplicant(key);">next</a>
+    </div>
+        <!-------------------- Applicant Profile ---------------------->
+        <div class="panel panel-default">
+          <div class="plusSection">
+            <span class="title"><label>{{applicant.name.formattedName}} (Key: {{applicant.loginKey}})</label></span>
+            <input type="hidden" value="{{applicant.key}}"/>
+          </div>
+          <div class="panel-body">
+            <table width="100%">
+              <tr>
+                <td colspan="2">
+                  <!-- form -->
+                  <div class="buttons" ng-show="!applicantform.$visible">
+                    <a class="editBtn" ng-click="applicantform.$show()"></a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><img src="images/phone.png"></td>
+                <td><label>
+                <span editable-text="applicant.phone" e-name="phone" e-required  e-form="applicantform">{{ applicant.phone || '' }}</span>
+                </label>
+                </td>
+              </tr>
+              <tr>
+                <td><img src="images/phone.png"></td>
+                <td><label>
+                    <span editable-text="applicant.phone2" e-name="phone2" e-required  e-form="applicantform">{{ applicant.phone2 || '' }}</span>
+                </label>
+                </td>
+              </tr>
+              <tr>
+                <td><img src="images/email.png"></td>
+                <td><label>
+                  <span editable-text="applicant.email" e-name="email" e-required  e-form="applicantform">{{ applicant.email || '' }}</span>
+                </label></td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top"><img src="images/home.png"></td>
+                <td>
+                  <label><span editable-text="applicant.address1.addressLine1" e-name="address1" e-required  e-form="applicantform">{{ applicant.address1.addressLine1 || '' }}</span></label><br/> 
+                  <label><span editable-text="applicant.address1.addressLine2" e-name="address2" e-required  e-form="applicantform">{{ applicant.address1.addressLine2 || '' }}</span></label><br/>
+                   <label><span editable-text="applicant.address1.city" e-name="city" e-required  e-form="applicantform">{{ applicant.address1.city || '' }}</span>, 
+                    &nbsp;<span editable-text="applicant.address1.state" e-name="state" e-required  e-form="applicantform">{{ applicant.address1.state || '' }}</span>&nbsp; 
+                  <span editable-text="applicant.address1.postalCode" e-name="zip" e-required  e-form="applicantform">{{ applicant.address1.postalCode || '' }}</span></label>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <form editable-form name="applicantform" onaftersave="updateApplicant(applicant)" ng-show="applicantform.$visible" class="form-buttons form-inline">
+                    <button type="submit" ng-disabled="applicantform.$waiting">
+                      <img src="images/update_button.png"/>
+                    </button>
+                    <!--<a ng-disabled="applicantform.$waiting"><input type="submit"><img src="images/update_button.png"></a></input>-->
+                    <a ng-disabled="applicantform.$waiting" ng-click="applicantform.$cancel()">cancel</a>
+                  </form>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+    <!-- FORWARD SECTION -->
+    <div class="">
+      <div class="panel panel-default">
+        <div class="plusSection">
+          <span class="title">Forward</span>
+          <a class="add" ng-controller="AppOVModalCtrl" ng-click="openModalEmailForward();"></a>
+        </div>
+        <div ng-show="noForwarding">No Forwarded Email(s)</div>
+        <table width="100%" class="table table-striped table-condensed table-hover">
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Date</th>
+            <th>Expires</th>
+          </tr>
+          <tr ng-repeat="forward in externalForwardList">
+            <td>{{forward.name}}</td>
+            <td>{{forward.email}}</td>
+            <td>{{forward.date | date:'MM/dd/yyyy'}}</td>
+            <td>{{forward.expires}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- comments ----->
+    <div class="">
+      <div class="panel panel-default">
+        <div class="plusSection">
+          <span class="title">Comments</span>
+          <a class="add" ng-controller="AppOVModalCtrl" ng-click="openModalComment()"></a>
+        </div>
+        <!------------ TABLE -------------->
+          <table width="100%" class="table table-striped table-condensed table-hover">
+              <tr ng-repeat="comment in comments">
+                  <td style="vertical-align: top;">
+                      <a class="collapseBtn" ng-show="!commentBol.toggle" ng-click="commentBol.toggle = !commentBol.toggle"></a>
+                      <a class="expandedBtn" ng-show="commentBol.toggle" ng-click="commentBol.toggle = !commentBol.toggle"></a>
+                  </td>
+                  <td width="80%" style="vertical-align: top; text-align: left">
+                      <a ng-click="commentBol.toggle = !commentBol.toggle">{{comment.comment}}</a>
+
+                      <table  collapse="!commentBol.toggle">
+                          <tr>
+                              <td>
+                                  <div class="remarks">
+                                  <span editable-textarea="comment.comment"   e-rows="4" e-cols="40" e-id="comment"  e-form="rowform">
+                                   {{ comment.comment }}
+                                  </span>
+                                  </div>
+                              </td>
+                              <td>
+                                  <label class="btn1 btn-primary" tooltip="Comment Set as Private" ng-show="rowform.$visible">
+                                      <input type="checkbox" ng-model="comment.private" autocomplete="off">Private
+                                  </label>
+                              </td>
+                              <td style="white-space: nowrap">
+                                  <!-- form -->
+                                  <form editable-form name="rowform" onaftersave="updateComment(comment.comment, comment.pk, comment.private)" ng-show="rowform.$visible" class="form-buttons form-inline">
+                                      <a ng-disabled="rowform.$waiting"><img src="images/update_button.png"></a>
+                                      <a ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()">cancel</a>
+                                  </form>
+                                  <div class="buttons" ng-show="!rowform.$visible">
+                                      <a ng-click="rowform.$show()"><img src="images/edit_button.png"></a>
+                                      <a ng-click="deleteComment(comment.pk);" ng-confirm-click="Are you sure you want to delete this comment?"><img src="images/delete_button.png"></a>
+                                  </div>
+                              </td>
+                          </tr>
+                      </table>
+                  </td>
+              </tr>
+            </table>
+
+
+
+      </div>
+    </div>
+
+  </div>
+  <!----------------------------------------------------------------- MIDDLE COLUMN ------------------------------------------->
+  <div class="col-md-7">
+      <div>
+        <a ng-controller="ModalCtrl" ng-click="openModalWatch(pk,'')" style="margin-left: 50px" tooltip="Watch Candidate"><img src="images/purple_watch_icon_B.png"></a>
+        <div style="display: inline-flex; vertical-align: middle;">
+          <ul>
+            <li class="{{applicantFlag.multiJobFlag}}" tooltip="Applied to Multiple Openings"></li>
+            <li class="{{applicantFlag.backgroundCheckFlag}}" tooltip="Background Check"></li>
+            <li class="{{applicantFlag.remarksFlag}}" tooltip="Candidate Comments"></li>
+            <li class="{{applicantFlag.skillsAssessmentFlag}}" tooltip="Skills Assessment"></li>
+            <li class="{{applicantFlag.editEnabledFlag}}" tooltip="Edit Enabled"></li>
+          </ul>
+        </div>
+        <a class="printBtn pull-right" ng-controller="ModalCtrl" ng-click="openModalPrint([{pk:applicantPk}])" tooltip="Print"></a>&nbsp;
+      </div>
+    <!-------------------- Candidate Data ---------------------->
+    <div class="panel panel-default">
+      <div class="plusSection">
+        <span class="title">Candidate Data</span>
+      </div>
+      <table class="table">
+        <tr class="danger">
+          <td><img src="images/skillAssesmentBlocks.png"></td>
+          <td><label>Skill Assessment</label></td>
+          <td><img src="images/backgroundCheck.png"></td>
+          <td><label>Background Check</label></td>
+          <td></td>
+          <td><label>Behavioral Assessment</label></td>
+          <td><span class="interviewguide" tooltip="Interview Guide"></span></td>
+          <td><label><a ng-click="guide.toggle = !guide.toggle;firstSteps.toggle = false;toggleInterviewGuideModal();">Interview Guide</a></label></td>
+          <td><span class="firstSteps" tooltip="First Steps"></span></td>
+          <td><label><a ng-click="firstSteps.toggle = !firstSteps.toggle;guide.toggle = false;toggleFirstStepsModal();">First Steps</a></label></td>
+        </tr>
+        <tr collapse="!guide.toggle">
+          <td colspan="10">
+            <div>
+              <div ng-include="'views/modal/interview-guide.html'"></div>
+            </div>
+          </td>
+        </tr>
+
+        <tr collapse="!firstSteps.toggle">
+          <td colspan="10">
+            <div >
+              <div ng-include="'views/modal/first-step.html'"></div>
+            </div>
+          </td>
+        </tr>
+
+      </table>
+    </div>
+
+    <!--------  POSITIONS ------->
+    <div class="">
+      <div class="panel panel-default">
+        <div class="plusSection">
+          <span class="title">Positions</span>
+        </div>
+        <table width="100%" class="table table-striped table-condensed table-hover"  style="font-size: 12px">
+          <tbody>
+          <tr ng-repeat="position in positions">
+            <td><span ng-click="toggleStar($event)" class="{{position.isFavorite}}" tooltip="Mark as Favorite"></span></td>
+            <td class="score"><span>{{position.score| number:0}}</span></td>
+            <td>
+              <a ng-controller="AppOVModalCtrl" ng-click="openChartsModal(position.kraTraits,position.weights,position.xFS,position.yFS,position.xProf,position.yProf)">{{position.position}}</a>
+            </td>
+            <td>
+              <span class="city">{{position.city}}</span><em>, </em><span class="state">{{position.state}}</span>
+            </td>
+            <td>
+              <span class="status" tooltip="{{position.Status}}">{{position.status}}</span>
+            </td>
+            <td>
+              <input type="checkbox" ng-model="position.editingEnabled" ng-change="enableEditing(position.editingEnabled);"><span class="status" style="font-size: 12px">Enable Editing</span>
+            </td>
+            <td>
+              <!-- Single button -->
+              <div class="btn-group">
+                <a data-toggle="dropdown" aria-expanded="false">
+                  <span class="glyphicon glyphicon-triangle-bottom"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
+                  <li>----- Current Status------</li>
+                  <li class="divider"></li>
+                  <li ng-repeat="current in currentStatuses"><a ng-click="changeStatus(current.id)">{{current.name}}</a></li>
+                  <li class="divider"></li>
+                  <li>----- Archived Status------</li>
+                  <li class="divider"></li>
+                  <li ng-repeat="archived in archivedStatuses"><a ng-click="changeStatus(archived.id)">{{archived.name}}</a></li>
+                </ul>
+              </div>
+            </td>
+            <td>
+              <!-- Single button -->
+              <div class="btn-group">
+                <a ng-controller="AppOVModalCtrl" ng-click="openStatusHistory(position.statusHistory);" tooltip="Status History">
+                  <img src="images/notcomplete.png">
+                </a>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- EMAIL SECTION -->
+    <div class="">
+      <div class="panel panel-default">
+        <div class="plusSection">
+          <span class="title">Emails</span>
+          <a class="add" ng-controller="ModalCtrl"  ng-click="openModalEmail([{'pk': applicantPk, 'araPk': araPk}]);"></a>
+        </div>
+        <div ng-show="noEmail">No Email(s)</div>
+        <table width="100%" class="table table-striped table-condensed table-hover">
+          <tr ng-repeat="email in emails">
+            <td style="vertical-align: top;">
+              <a class="collapseBtn" ng-show="email.toggle" ng-click="email.toggle = !email.toggle"></a>
+              <a class="expandedBtn" ng-show="!email.toggle" ng-click="email.toggle = !email.toggle"></a>
+            </td>
+            <td width="80%" style="vertical-align: top; text-align: left">
+              <a ng-click="email.toggle = !email.toggle">{{email.subject}}</a>
+              <div collapse="email.toggle">
+                <div class="panel panel-default">
+                  <div class="panel-body"><div ng-bind-html="email.body"></div></div>
+                </div>
+              </div>
+            </td>
+            <td ng-show="email.toggle" style="vertical-align: top; text-align: left">
+              <a ng-controller="ModalCtrl"  ng-click="openResendEmail(applicantPk,email);" tooltip="Resend"><img src="images/resend_icon.png"></a>
+            </td>
+            <td ng-show="email.toggle" style="vertical-align: top; text-align: right">
+              {{email.status}}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!--------  QUESTIONNAIRES ------->
+    <div class="">
+      <div class="panel panel-default borderless">
+        <div class="plusSection">
+          <span class="title">Questionnaires</span>
+        </div>
+        <table width="100%" class="table table-striped table-condensed table-hover">
+          <thead>
+          <td></td>
+          <th>Questionnaire</th>
+          <th>Date Completed</th>
+          <th>Version</th>
+          </thead>
+          <tr>
+            <td style="vertical-align: top;">
+              <img src="images/complete.png">
+            </td>
+            <td>All Responses</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr ng-repeat="questionnaire in questionnaireList">
+            <td style="vertical-align: top;">
+              <img src="images/complete.png">
+            </td>
+            <td>{{questionnaire.name}}</td>
+            <td>{{questionnaire.date|date:'MM/dd/yyyy'}}</td>
+            <td>{{questionnaire.version}}</td>
+
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!--------  ATTACHMENTS ------->
+    <div class="">
+      <div class="panel panel-default">
+        <div class="plusSection">
+          <span class="title">Attachments</span>
+          <a class="add" ng-click="openUploadModal()"></a>
+        </div>
+        <div ng-show="noAttachments">No Attachment(s)</div>
+        <table width="100%" class="table table-striped table-condensed table-hover">
+          <tr ng-repeat="attachment in attachments">
+            <td>
+              <span class="docx"></span>
+            </td>
+            <td>
+              <a><span class="name">{{attachment.name}}</span></a>
+            </td>
+            <td style="vertical-align: top; text-align: left">
+              <a ng-click="email.toggle = !email.toggle">{{email.date | date:'MM/dd/yyyy'}}</a>
+              <div collapse="email.toggle">
+                <div class="panel panel-default">
+                  <div class="panel-heading">{{email.subject}}</div>
+                  <div class="panel-body"><div ng-bind-html="email.body"></div></div>
+                </div>
+              </div>
+            </td>
+            <td style="vertical-align: top; text-align: right">{{email.status}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Comments Modal -->
+<div ng-controller="AppOVModalCtrl">
+  <script type="text/ng-template" id="applicantViewCommentsModel.html">
+    <div ng-include="'views/modal/applicant-comment-modal.html'"></div>
+  </script>
+</div>
+
+<!-- Email Forward Modal -->
+<div ng-controller="AppOVModalCtrl">
+  <script type="text/ng-template" id="emailForwardModal.html">
+    <div ng-include="'views/modal/email-forward.html'"></div>
+  </script>
+</div>
+
+<!-- Email Modal -->
+<div ng-controller="AppOVModalCtrl">
+  <script type="text/ng-template" id="candidateEmailModal.html">
+    <div ng-include="'views/modal/email-modal.html'"></div>
+  </script>
+</div>
+
+<!-- Forgot Password -->
+<div ng-controller="AppOVModalCtrl">
+    <script type="text/ng-template" id="forgotPasswordModal.html">
+        <div ng-include="'views/modal/forgot-password.html'"></div>
+    </script>
+</div>
+
+<!-- Status History Modal -->
+<div ng-controller="AppOVModalCtrl">
+  <script type="text/ng-template" id="statusHistoryModal.html">
+    <div ng-include="'views/modal/status-history-modal.html'"></div>
+  </script>
+</div>
+
+<!-- Interview Guilde Modal -->
+<div ng-controller="AppOVModalCtrl">
+  <script type="text/ng-template" id="interviewGuideModal.html">
+    <div ng-include="'views/modal/interview-guide.html'"></div>
+  </script>
+</div>
+
+<!-- First Step Modal -->
+<div ng-controller="AppOVModalCtrl">
+  <script type="text/ng-template" id="firstStepModal.html">
+    <div ng-include="'views/modal/first-step.html'"></div>
+  </script>
+</div>
+
+<!-- WATCH Modal -->
+<div ng-controller="ModalCtrl">
+    <script type="text/ng-template" id="watchModal.html">
+      <div ng-include="'views/modal/watch-modal.html'"></div>
+    </script>
+</div>
+
+<!-- Charts Modal -->
+<div ng-controller="AppOVModalCtrl">
+<script type="text/ng-template" id="chartsModal.html">
+  <div ng-include="'views/modal/charts.html'"></div>
+</script>
+</div>
+
+<!-- PRINT Modal -->
+<div ng-controller="ModalCtrl">
+    <script type="text/ng-template" id="printModal.html">
+      <div ng-include="'views/modal/print-modal.html'"></div>
+  </script>
+</div>
+
+<!-- Resend Email Modal -->
+<div ng-controller="ModalCtrl">
+    <script type="text/ng-template" id="candidateResendEmail.html">
+        <div ng-include="'views/modal/resend-email.html'"></div>
+    </script>
+</div>
+
+<!-- Upload Attachment Modal -->
+<div ng-controller="ModalCtrl">
+  <script type="text/ng-template" id="applicantUploadAttachmentModal.html">
+    <div ng-include="'views/modal/upload-attachment.html'"></div>
+  </script>
+</div>
+
+<!-- Help Modal -->
+<div ng-controller="ModalCtrl">
+  <script type="text/ng-template" id="helpModal.html">
+    <div ng-include="'views/modal/help-modal.html'"></div>
+  </script>
+</div>

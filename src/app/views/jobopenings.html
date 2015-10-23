@@ -1,0 +1,100 @@
+<div ng-include  ng-controller="LoginCtrl" src="'views/nav.html'"></div>
+<div class="alert alert-danger" ng-show="error" role="alert">
+  <a href="" class="alert-link">A Server Error has occurred.  If this continues, please contact your Kiosite Administrator.</a>
+</div>
+<section class="main">
+  <div class="row-fluid">
+    <div class="container narrow" id="main">
+      <div class="position-list" style="">
+        <div class="headerWell">
+          <div class="" style="width: 100%;display: inline-flex">
+            <span class="mainTitle" style="width: 75%">Job Openings</span>
+
+              <div style="width: 75%"><img ng-show="preloader" src="images/loading-iconB-32.gif"></div>
+
+             <div style="float: right;width: 55%;">
+              <div class="input-group">
+                  <div class="input-group-btn">
+                      <label class="btn btn-default" tooltip="Toggle Archived Data" style="margin-right: 1%;;border-top-left-radius: 9px; border-bottom-left-radius: 9px;">
+                          <input type="checkbox" ng-model="archived" ng-click="archivedData();" autocomplete="off" style="margin-bottom: 0px;margin-top: 0px" > Include Archived
+                      </label>
+                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                              style="margin-bottom: 0px;margin-top: 0px" >Filter By <span class="caret"></span></button>
+                      <ul class="dropdown-menu" role="menu">
+                          <li><a ng-click="toggleFilterName('Name')">Name</a></li>
+                          <li><a ng-click="toggleFilterBy('Department'); filteredColumn='Department';">Department</a></li>
+                          <li><a  ng-click="toggleFilterBy('Location'); filteredColumn='Location'">Location</a></li>
+                          <li><a  ng-click="toggleFilterBy('Type'); filteredColumn='Type'">Type</a></li>
+                      </ul>
+                  </div><!-- /btn-group -->
+                  <div class="input-group" ng-show="showName">
+                      <input type="text" ng-model="localSearch"  class="form-control" aria-label="..." placeholder="Filter by Name...">
+                            <span class="input-group-btn">
+                            <button class="btn btn-default" ng-click="reset();" type="button"
+                                    style="border-top-right-radius: 9px; border-bottom-right-radius: 9px;">Reset</button>
+                            </span>
+                  </div><!-- /input-group -->
+                  <div class="input-group" ng-show="!showName">
+                      <div class="dropdown" style="float: left">
+                          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true">
+                              {{filteredColumn}}
+                              <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" role="menu">
+                              <li ng-repeat="item in jobList | unique: filteredColumn |orderBy:item "  role="presentation">
+                                  <a role="menuitem" tabindex="-1" href=""  ng-click="uniqueItem(item);">{{ item }}</a>
+                              </li>
+                          </ul>
+                      </div>
+                            <span class="input-group-btn" style="float: left">
+                            <button class="btn btn-default" ng-click="reset();" type="button" style="border-top-right-radius: 9px; border-bottom-right-radius: 9px;">Reset</button>
+                            </span>
+                  </div>
+              </div><!-- /.col-lg-6 -->
+            </div>
+
+          </div>
+          <div class="span3" style="text-align: right;width: 30%;float: right;margin-top: -33px;">
+        </div><!-- /.row -->
+        </div>
+      </div>
+      <!--  TABLE ------>
+      <div>
+        <table class="table table-striped table-bordered table-condensed table-hover">
+         <tr>
+            <th><a href="" ng-click="orderByField='isFavorite'; reverseSort = !reverseSort"><img src="images/star_active.png"></a></th>
+            <th><a href="" ng-click="orderByField='name'; reverseSort = !reverseSort">Position</a></th>
+            <th><a href="" ng-click="orderByField='Department'; reverseSort = !reverseSort">Department</a></th>
+            <th><a href="" ng-click="orderByField='Location'; reverseSort = !reverseSort">Location</a></th>
+            <th><a href="" ng-click="orderByField='Type'; reverseSort = !reverseSort">Type</a></th>
+            <th style="text-align: center"><a href="" ng-click="orderByField='count'; reverseSort = !reverseSort">Total</a></th>
+            <th style="text-align: center"><a href="" ng-click="orderByField='newCount'; reverseSort = !reverseSort">Unread</a></th>
+            <th>Action</th>
+          </tr>
+          <tr class="" ng-repeat="position in jobList | matchName:localSearch | orderBy:orderByField:reverseSort">
+            <td><span ng-click="toggleStar($event, position.id)" class="{{position.isFavorite}}" tooltip="Mark as Favorite"></span></td>
+            <td><a href="" ng-click="goToCandidatesURL(position.id,position.name);">{{position.name}}</a></td>
+            <td>{{position.Department}}</td>
+            <td>{{position.Location}}</td>
+            <td>{{position.Type}}</td>
+            <td style="text-align: center">{{position.count}}</td>
+            <td style="text-align: center"><span class="badge">{{position.newCount}}</span></td>
+            <td class="action">
+              <a href="" ng-show="{{position.hasComments}}" ng-click="openModal(position.id,position.name);" tooltip="Add/View Comments"><img src="images/add_comment_iconB.png"></a>
+              <a href="" ng-show="{{position.noComments}}" ng-click="openModal(position.id,position.name);" tooltip="Add/View Comments"><img src="images/gray_add_comment_iconB.png"></a>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- Comments Modal
+ <div ng-controller="JobOpeningCtrl">-->
+<div>
+  <script type="text/ng-template" id="commentsModelContent.html">
+    <div ng-include="'views/modal/comment-modal.html'"></div>
+  </script>
+</div>

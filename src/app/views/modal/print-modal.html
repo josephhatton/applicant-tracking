@@ -1,0 +1,31 @@
+<!-- Modal content-->
+<div>
+  <div class="modal-panel">
+    <div class="modal-header">
+      <button type="button" class="close" ng-click="cancel();"><img src="images/close.png" alt="close" /></button>
+      <h4 class="modal-title">Print Wizard</h4>
+    </div>
+    <div class="modal-body">
+      <div collapse="collapseSelectedWarning" style="margin-left: 10%;width: 80%; text-align: center;">
+        <alert type="warning">No Candidates were selected!</alert>
+      </div>
+      <div collapse="collapsePrintWarning" style="margin-left: 10%;width: 80%; text-align: center;">
+        <alert type="warning">No Printable items were selected!</alert>
+      </div>
+      <table class="table table-condensed table-striped table-hover">
+        <tr><td><input type="checkbox" ng-change="toggleAll(bool)" ng-model="bool"></td><td>Select All</td></tr>
+        <tr ng-repeat="printable in printList">
+          <td><input type="checkbox" ng-change="toggleSelection(printable.checked,printable.id)" ng-model="printable.checked"></td>
+          <td><label>{{printable.name}}</label></td>
+        </tr>
+        <tr ng-repeat="attprintable in attprintList">
+          <td><input type="checkbox" ng-change="toggleAttSelection(attprintable.checked,attprintable.id)" ng-model="attprintable.checked"></td>
+          <td><label>{{attprintable.name}}</label></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="modal-footer"> <a class="cancel" href="" ng-click="cancel();">Cancel</a>
+    <button type="button" class="btn btn-success" ng-click="print();"> <i><img src="images/icon-print.png" alt="" /></i> Print</button>
+  </div>
+</div>

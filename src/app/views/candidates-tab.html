@@ -1,0 +1,57 @@
+<div id="previewPane" hide-me="isHidden">
+  <div class="menu">
+    <a class="ex" ng-click="togglePane();"><i></i>Close</a>
+  </div>
+  <tabset>
+    <!----------------------------- SCREENER TAB ------------->
+    <tab active="tabs[0].active" select="toggleScreener(araPk,nameTitle);">
+      <tab-heading>
+        <span class="screener"></span>
+      </tab-heading>
+      <div ng-include="'views/partials/screener.html'"></div>
+    </tab>
+    <!------------------------------------ CHARTS TAB ------------->
+    <tab active="tabs[1].active" select="toggleCharts(pk,araPk,nameTitle);">
+      <tab-heading>
+        <span class="charts"></span>
+      </tab-heading>
+      <div ng-include="'views/partials/charts.html'"></div>
+    </tab>
+    <!------------------  Paper Clip -------------->
+    <tab  active="tabs[2].active" select="toggleClips(attachmentUrl,nameTitle);">
+      <tab-heading>
+        <span class="paperclip"></span>
+      </tab-heading>
+      <div class="addReporting">
+        <div ng-click="cancel();" class="closeCircle"></div>
+        <div class="selectList">
+          <p>Resume of {{nameTitle}}</p>
+          <div class="scrollable-reporting">
+            <div class="selectListRow selected">
+              <div class="well-large">
+                <iframe src="http://docs.google.com/viewer?url=http://localhost:8080/hiretrue/app/data/Joseph_Hattons_Resume.doc&embedded=true" style="width: 100%; height:700px;" frameborder=”0″></iframe>
+              </div>
+            </div>
+            <div class="overlay"></div>
+          </div>
+        </div>
+      </div>
+
+      </tab>
+    <!------------------  FIRST STEP -------------->
+    <tab  active="tabs[3].active" select="toggleFirstSteps(araPk,nameTitle);">
+      <tab-heading>
+        <span class="firstSteps"></span>
+      </tab-heading>
+      <div ng-include="'views/partials/first-step.html'"></div>
+    </tab>
+
+    <!------------------  INTERVIEW GUIDE -------------->
+    <tab  active="tabs[4].active" select="toggleInterviewGuide(araPk,nameTitle);">
+      <tab-heading>
+        <span class="interviewguide"></span>
+      </tab-heading>
+      <div ng-include="'views/partials/interview-guide.html'"></div>
+    </tab>
+  </tabset>
+</div>

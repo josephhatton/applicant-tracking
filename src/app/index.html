@@ -1,0 +1,124 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <!-- build:css({.tmp,app}) styles/main.css -->
+    <!-- <link rel="stylesheet" href="styles/bootstrap.css"> -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="components/jquery-ui/themes/base/minified/jquery-ui.min.css">
+    <link rel="stylesheet" href="components/angular-xeditable/dist/css/xeditable.css">
+    <link rel="stylesheet" href="components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/simple.css">
+    <!-- endbuild -->
+
+    <!--[if lt IE 9]>
+    <script src="components/es5-shim/es5-shim.js"></script>
+    <script src="components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-XXXXX-X');
+      ga('send', 'pageview');
+    </script>
+
+    <script type="text/javascript" src="components/angular/angular.js"></script>
+    <script src="components/jquery/jquery.min.js"></script>
+    <script src="components/jquery-ui/ui/minified/jquery-ui.custom.min.js"></script>
+    <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="components/pdfjs-dist/build/pdf.js"></script>
+    <script src="components/angular-pdf-viewer/dist/angular-pdf-viewer.min.js"></script>
+
+
+    <script src="components/angular-resource/angular-resource.js"></script>
+    <script src="components/angular-cookies/angular-cookies.js"></script>
+    <script src="components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="components/angular-route/angular-route.js"></script>
+    <script src="components/angular-filter/dist/angular-filter.min.js"></script>
+    <script src="components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.11.2/TweenMax.min.js"></script>
+    <script src="components/angular-xeditable/dist/js/xeditable.min.js"></script>
+    <script src="components/HighCharts/js/highcharts.js"></script>
+    <script src="components/HighCharts/js/highcharts-more.js"></script>
+    <script src="components/draganddrop.js"></script>
+    <script type="text/javascript" src="components/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript" src="components/angular-ui-tinymce/src/tinymce.js"></script>
+    <script type="text/javascript" src="components/ng-file-upload/ng-file-upload.min.js"></script>
+    <script type="text/javascript" src="components/ng-file-upload/ng-file-upload-shim.min.js"></script>
+
+    <script src="https://www.google.com/recaptcha/api.js"
+            async defer>
+    </script>
+    <script src="https://www.google.com/recaptcha/api.js?fallback=true" async defer></script>
+<!--onload=onloadCallback&render=explicit"-->
+    <!--<script type="text/javascript">
+      var onloadCallback = function() {
+        grecaptcha.render('html_element', {
+          'sitekey' : '6Ld8sgkTAAAAALHWITDXT_hz96XyU3h-Ot2cBrKe'
+        });
+      };
+    </script>-->
+
+
+
+      <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/route.js"></script>
+    <script src="scripts/utils/shared-svc-module.js"></script>
+    <script src="scripts/utils/directives.js"></script>
+
+
+    <!-- CONTROLLERS -->
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/dashboard.js"></script>
+    <script src="scripts/controllers/login.js"></script>
+    <script src="scripts/controllers/jobopenings.js"></script>
+    <script src="scripts/controllers/candidates.js"></script>
+    <script src="scripts/controllers/requisitions.js"></script>
+    <script src="scripts/controllers/position-template.js"></script>
+    <script src="scripts/controllers/candidate.js"></script>
+    <script src="scripts/controllers/modals.js"></script>
+    <script src="scripts/controllers/app-overview-modal.js"></script>
+    <script src="scripts/controllers/position-assignment.js"></script>
+
+    <!-- SERVICES -->
+    <script src="scripts/services/authorization.js"></script>
+      <script src="scripts/services/menu.js"></script>
+    <script src="scripts/services/jobopenings.js"></script>
+    <script src="scripts/services/candidates.js"></script>
+    <script src="scripts/services/session.js"></script>
+    <script src="scripts/services/requisitions.js"></script>
+    <script src="scripts/services/position-template.js"></script>
+
+    <!-- endbuild -->
+  </head>
+  <body ng-app="hiretrueApp">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div class="" ng-view=""></div>
+
+</body>
+</html>

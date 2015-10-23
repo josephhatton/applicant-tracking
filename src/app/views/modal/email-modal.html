@@ -1,0 +1,54 @@
+<!-- Modal content-->
+<div>
+  <div class="modal-panel">
+    <div class="modal-header">
+      <button type="button" class="close" ng-click="cancel();"><img src="images/close.png" alt="close" /></button>
+      <h4 class="modal-title">Email Candidate(s)</h4>
+    </div>
+    <div class="modal-body">
+      <form  name="eform" novalidate>
+          <table>
+            <tr><td style="height: 40px">
+              <div collapse="collapseSentWarning">
+                <alert type="warning" style="padding: 4px;">Email Sent!</alert>
+              </div>
+              <div collapse="collapseSelectedWarning">
+                <alert type="warning" style="padding: 4px;">No Candidates were selected!</alert>
+              </div>
+            </td></tr>
+            <tr><td><label>Email Template</label></td></tr>
+            <tr><td>
+              <select name="selectTemplate" class="btn btn-default dropdown-toggle" ng-change="getTemplate();"
+                      ng-options="template.name for template in emailTemplate" ng-model="selectedTemplate.template">
+              </select>
+            </td></tr>
+            <tr><td><label>From</label></td></tr>
+            <tr><td><input type="text"  ng-model="emailForm.from"></td></tr>
+            <tr><td><label>Subject</label></td></tr>
+            <tr><td><input class="btext" type="text" value="" ng-model="emailForm.subject"></td></tr>
+            <tr><td>
+              <textarea id="emaileditor" name="emaileditor" ui-tinymce="tinymceOptions" ng-model="emailForm.body"></textarea>
+            </td></tr>
+          </table>
+
+          <div>
+            <div class="scrollable-candidates-email">
+              <table class="table table-striped table-bordered table-condensed table-hover">
+                <tr>
+                  <th>Name</th>
+                  <th>Phone</th>
+                </tr>
+                <tr class="" ng-repeat="candidate in candidates | filter:{checked: true}">
+                  <td>{{candidate.name}}</td>
+                  <td>{{candidate.phone}} </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer"> <a class="cancel" href="" ng-click="cancel();">Cancel</a>
+    <button type="button" class="btn btn-success" ng-click="sendEmails(emailForm);"> <i><img src="images/icon-send.png" alt="" /></i> &nbsp;  Send</button>
+  </div>
+</div>

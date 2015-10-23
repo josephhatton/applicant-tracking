@@ -1,0 +1,36 @@
+<!-- Modal content-->
+<div>
+  <div class="modal-panel">
+    <div class="modal-header">
+      <button type="button" class="close" ng-click="cancel();"><img src="images/close.png" alt="close" /></button>
+      <h4 class="modal-title">Email Resend</h4>
+    </div>
+    <div class="modal-body">
+      <form name="eform" novalidate>
+        <table>
+            <tr><td style="height: 40px">
+                <div collapse="collapseSentWarning">
+                    <alert type="warning">Email Resent!</alert>
+                </div>
+            </td></tr>
+            <tr><td>
+                <label>From</label>
+                <div>{{emailForm.from}}</div>
+            </td></tr>
+            <tr><td>
+                <label>Subject</label>
+                <div>{{emailForm.subject}}</div>
+            </td></tr>
+            <tr><td>
+                <div class="scrollable-resend">
+                    <div ng-bind-html="emailForm.body"></div>
+                </div>
+            </td></tr>
+        </table>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer"> <a class="cancel" href="" ng-click="cancel();">Cancel</a>
+    <button type="button" class="btn btn-success" ng-click="resendEmailNow();"> <i><img src="images/icon-send.png" alt="" /></i> &nbsp; Resend</button>
+  </div>
+</div>

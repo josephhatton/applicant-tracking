@@ -1,0 +1,31 @@
+<div style="display: block;">
+  <div class="addPrint">
+    <div ng-click="cancel();" class="closeCircle"></div>
+    <div class="selectList">
+      <p>Help</p>
+      <div class="selectListRow selected">
+        <div>
+          <div collapse="collapseSelectedWarning" style="margin-left: 10%;width: 80%; text-align: center;">
+            <!--<alert type="warning">No Candidates were selected!</alert>-->
+          </div>
+          <div collapse="collapsePrintWarning" style="margin-left: 10%;width: 80%; text-align: center;">
+            <!--<alert type="warning">No Printable items were selected!</alert>-->
+          </div>
+          <table class="table table-condensed table-striped table-hover">
+            <!--<tr><td><input type="checkbox" ng-change="toggleAll(bool)" ng-model="bool"></td><td>Select All</td></tr>-->
+            <tr ng-repeat="printable in printList">
+              <td><input type="checkbox" ng-change="toggleSelection(printable.checked,printable.id)" ng-model="printable.checked"></td>
+              <td><label>{{printable.name}}</label></td>
+            </tr>
+            <tr ng-repeat="attprintable in attprintList">
+              <td><input type="checkbox" ng-change="toggleAttSelection(attprintable.checked,attprintable.id)" ng-model="attprintable.checked"></td>
+              <td><label>{{attprintable.name}}</label></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="pull-left" ng-click="cancel();">Cancel</p>
+    <!--<a class="btn btn-warning print" ng-click="print();">Print</a>-->
+  </div>
+</div>

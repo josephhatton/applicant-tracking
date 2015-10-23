@@ -1,0 +1,62 @@
+<!-- Modal content-->
+<div>
+  <div class="modal-panel">
+    <div class="modal-header">
+      <button type="button" class="close" ng-click="cancel();"><img src="images/close.png" alt="close" /></button>
+      <h4 class="modal-title">Add to Watch List</h4>
+    </div>
+    <div class="modal-body" style="padding: 0px">
+      <form role="form">
+        <table>
+          <tr>
+            <td colspan="3">
+              <div collapse="collapseWatchedWarning">
+                <alert type="warning">Candidate has been put on Watch List</alert>
+              </div>
+              <div collapse="collapseFolderWarning">
+                <alert type="warning">There are no existing folder. Please create a new folder.</alert>
+              </div>
+              <div collapse="collapseSelectedFolderWarning">
+                <alert type="warning">Please select a folder from the dropdown.</alert>
+              </div>
+              <div collapse="collapseNoFolderNameWarning">
+                <alert type="warning">Please input a folder name.</alert>
+              </div>
+
+            </td>
+          </tr>
+          <tr><td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td height="40px">Folder List</td>
+          </tr>
+          <tr>
+            <td><input type="radio" ng-model="watchRadio.name" value="existing" ng-checked="true"></td>
+            <td>&nbsp;</td>
+            <td>
+              <select name="watchFldr" class="btn btn-default dropdown-toggle" required
+                      ng-options="o.name for o in options" ng-model="folderSelected.name">
+                <option value=""> Select Folder </option>
+              </select>
+            </td>
+          </tr>
+          <tr><td>&nbsp;</td></tr>
+          <tr><td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td height="40px">Create a New Watch List</td>
+          </tr>
+          <tr>
+            <td><input type="radio" ng-model="watchRadio.name" value="new"></td>
+            <td>&nbsp;</td>
+            <td>
+              <input type="text" placeholder="New Folder Name" required value="" ng-model="newWatchList.name">
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a class="cancel" href="" ng-click="cancel();">Cancel</a>
+    <button type="button" class="btn btn-success" ng-click="addWatch();"> <i><img src="images/star.png" alt="" /></i> Watch</button>
+  </div>
+</div>

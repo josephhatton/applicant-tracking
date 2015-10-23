@@ -1,0 +1,40 @@
+<!-- Modal content-->
+<div>
+  <div class="modal-panel">
+    <div class="modal-header">
+      <h4 class="modal-title">FirstStep Assessment of {{nameTitle}}</h4>
+      <div style="width: 100%;text-align: center;"><img ng-show="showLoading" src="images/loading-iconB-32.gif"></div>
+    </div>
+    <div class="modal-body">
+      <div class="scrollable-reporting">
+          <table>
+            <tr><td><div id="first-step"></div></td></tr>
+            <tr>
+              <td style="padding-left: 20px; padding-top: 20px" dir="">
+                  <b>Assertiveness</b><br/>
+                  <span style="margin-bottom: 10px;" dir="">{{firstStep.assertiveness}}</span><br/><br/>
+                  <b>Empathy</b><br>
+                  <span style="margin-bottom: 10px;" dir="">{{firstStep.empathy}}</span><br/><br/>
+                  <b>Confidence</b><br/>
+                  <span style="margin-bottom: 10px;" dir="">{{firstStep.confidence}}</span><br/><br/>
+                  <b>Sociability</b><br/>
+                  <span style="margin-bottom: 10px;" dir="">{{firstStep.sociability}}</span><br/><br/>
+                  <b>Helpfulness</b><br/>
+                  <span style="margin-bottom: 10px;" dir="">{{firstStep.helpfulness}}</span><br/><br/>
+                  <b>Thoroughness</b><br/>
+                  <span style="margin-bottom: 10px;" dir="">{{firstStep.thoroughness}}</span><br/><br/>
+                  <b>Problem Solving</b><br/>
+                  <span style="margin-bottom: 10px;" dir="">{{firstStep.problemSolving}}</span><br/><br/>
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: left; padding-left: 20px;">
+                <strong>Note:</strong> The Caliper FirstStep is an interpretation of potential behavior based solely upon the measurement of personality, problem solving, and motivation. The results provided are intended to offer a description of how the Candidate is likely to behave or act in a specific role or situation, as defined by the specified KRAs. It is important that results contained in this report be interpreted in light of other information which is available about the individual. The results of this assessment should never be used as the sole basis for making a hiring or developmental decision.
+              </td>
+            </tr>
+            </tbody>
+          </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+<div ng-include src="'views/nav.html'"></div>
+
+<div class="alert alert-danger" ng-show="error" role="alert">
+  <a href="#" class="alert-link">A Server Error has occurred.  If this continues, please contact your Kiosite Administrator.</a>
+</div>
+<img ng-show="preloader" src="images/preloader.gif">
+<section class="main">
+  <div class="row-fluid">
+    <div class="container narrow" id="main"><div class="position-list" style="">
+      <div class="well tableTitle">
+        <div class="span9" style="width: 600px;">
+          <h2 style="margin-top: 1px">Position Template</h2>
+        </div>
+        <div class="span3" style="text-align: right;width: 270px;float: right;margin-top: -25px;">
+          <input type="text" ng-model="candidateSearch" class="input-medium search-query" style="width: 190px;height: 23px; border-radius: 20px;" placeholder="Find job openings...">
+        </div>
+      </div>
+      <div id="">
+        <div >
+          <div class="">
+
+            <div class="row">
+              <div class="col-md-8">
+                <div class="scrollable-span3">
+                  <!-- Table Start-->
+                  <table class="table table-striped">
+                    <tr>
+                      <th><a href="" ng-click="orderByField='position'; reverseSort = !reverseSort">Name</a></th>
+                      <th><a href="" ng-click="orderByField='type'; reverseSort = !reverseSort">Type</a></th>
+                      <th><a href="" ng-click="orderByField='modified'; reverseSort = !reverseSort">Modified</a></th>
+                      <th><a href="" ng-click="orderByField='status'; reverseSort = !reverseSort">Status</a></th>
+                      <th>Action</th>
+                    </tr>
+                    <tr class="" ng-repeat="position in positions | orderBy:orderByField:reverseSort ">
+                      <td>
+                          <a>{{position.name}}</a>
+                      </td>
+                      <td>
+                        <span class="title">{{position.type}}</span>
+                      </td>
+                      <td>
+                        <span class="status">{{position.modified | date:'MM/dd/yyyy'}}</span>
+                      </td>
+                      <td>
+                        <span class="modified">{{position.status}}</span>
+                      </td>
+                      <td class="action">
+                        <!-- Single button -->
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <img src="images/actions_icon.png" width="30" height="15" alt="">
+                          </button>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Edit</a></li>
+                            <li><a href="#">Duplicate</a></li>
+                            <li><a href="#">Delete</a></li>
+                            <li><a href="#">View History</a></li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="scrollable-span3">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">Job Description</h3>
+                    </div>
+                    <div class="panel-body">
+                      Panel content
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,36 @@
+<div ng-include src="'views/nav.html'" xmlns="http://www.w3.org/1999/html"></div>
+<div class="alert alert-danger" ng-show="error" role="alert">
+  <a href="" class="alert-link">A Server Error has occurred.  If this continues, please contact your Kiosite Administrator.</a>
+</div>
+<section class="main">
+  <div class="row-fluid">
+    <div class="container narrow" id="main">
+      <div class="position-list" style="">
+        <div class="headerWell">
+          <div class="" style="width: 100%;display: inline-flex">
+            <span class="mainTitle" style="width: 75%">Dashboard</span>
+
+            <div style="width: 30%"><img ng-show="preloader" src="images/loading-iconB-32.gif"></div>
+
+            <div style="float: right;width: 55%;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default" style="width: 25%;">
+        <div class="panel-heading">
+          <h3 class="panel-title">Watch List</h3>
+        </div>
+        <div class="panel-body">
+          <ul ng-repeat="watch in watchList;">
+            <li><strong>{{watch.name}}</strong></li>
+            <ul ng-repeat="candidate in watch.candidates;">
+              <li style="margin-left: 15px"><a href="#/candidate/1/{{candidate.pk}}/0">{{candidate.name}}</a></li>
+            </ul>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,203 @@
+<div ng-include src="'views/nav.html'"></div>
+
+<div class="alert alert-danger" ng-show="error" role="alert">
+  <a href="" class="alert-link">A Server Error has occurred.  If this continues, please contact your Kiosite Administrator.</a>
+</div>
+<section class="main">
+  <div class="row-fluid">
+    <div class="container narrow" id="main">
+        <div class="position-list" style="">
+            <div class="headerWell">
+              <div class="" style="width: 100%;display: inline-flex">
+                <span class="mainTitle" style="width: 100%">{{candidate_count}} Candidates for {{title}}</span>
+                <div style="width: 50%"><img ng-show="preloader" src="images/loading-iconB-32.gif"></div>
+
+                <div style="float: right;width: 50%;">
+                  <div class="input-group">
+                    <div class="input-group-btn">
+                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"
+                              style="border-top-left-radius: 9px; border-bottom-left-radius: 9px;">Filter By <span class="caret"></span></button>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a ng-click="toggleFilterName('Name')">Name</a></li>
+                        <li><a  ng-click="toggleFilterBy('Status'); filteredColumn='Status'">Status</a></li>
+                      </ul>
+                    </div><!-- /btn-group -->
+                      <span class="input-group" ng-show="showNameSearch">
+                        <input type="text" ng-model="localSearch" class="form-control" aria-label="..." placeholder="Filter by Name...">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" ng-click="reset();" type="button" style="border-top-right-radius: 9px; border-bottom-right-radius: 9px;">Reset</button>
+                        </span>
+                      </span>
+                    <div class="input-group" ng-show="!showNameSearch">
+                      <div class="dropdown" style="float: left">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                          {{filterName}}
+                          <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                          <li ng-repeat="item in candidates | unique: filteredColumn"  role="presentation">
+                            <a role="menuitem" tabindex="-1" href=""  ng-click="uniqueItem(item);">{{ item }}</a>
+                          </li>
+                        </ul>
+                      </div>
+                      <span class="input-group-btn"  style="float: left">
+                        <button class="btn btn-default" ng-click="reset();" type="button" style="border-top-right-radius: 9px; border-bottom-right-radius: 9px;">Reset</button>
+                      </span>
+                    </div>
+                </div><!-- /input-group -->
+              </div>
+        </div>
+      </div>
+      <div collapse="collapseCheckboxWarning">
+        <alert type="warning">No Checkboxes were selected!</alert>
+      </div>
+      <div style="display: inline-flex">
+          <span class="pull-right"><a class="emailBtn pull-right" ng-controller="ModalCtrl" ng-click="openModalEmail(checkboxes);" tooltip="Send Multiple E-Mails"></a></span>&nbsp;
+          <span class="pull-right"><a class="printBtn pull-right" ng-controller="ModalCtrl" ng-click="openModalPrint(checkboxes)" tooltip="Print"></a></span>&nbsp;
+          <span class="pull-right"><a class="enableEditBtn pull-right" ng-click="enableEditing();" tooltip="Edit Enabled"></a></span>
+
+          <div class="dropdown">
+              <a class="dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true"
+                 style="display: inline-flex" tooltip="Change Status"><div class="flag-icon"></div>
+                  <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
+                <li><a ng-click="changeStatus(-2)">Most Recent Current Status</a></li>
+                <li class="divider"></li>
+                <li>----- Current Status------</li>
+                <li class="divider"></li>
+                <li ng-repeat="current in currentStatuses"><a ng-click="changeStatus(current.id)">{{current.name}}</a></li>
+                <li class="divider"></li>
+                <li>----- Archived Status------</li>
+                <li class="divider"></li>
+                <li ng-repeat="archived in archivedStatuses"><a ng-click="changeStatus(archived.id)">{{archived.name}}</a></li>
+              </ul>
+            </div>
+           </div>
+      <!------------------------------------ TABLE ----------------------------->
+      <div>
+        <div class="row">
+          <div ng-class="tableWidth">
+            <div class="scrollable-candidates">
+              <table class="table table-striped table-bordered table-condensed table-hover">
+                <tr style="vertical-align: middle">
+                  <th><input type="checkbox" ng-change="toggleAll(bool)" ng-model="bool"></th>
+                  <th><a href="" ng-click="orderByField='isFavorite'; reverseSort = !reverseSort;sortBy('isFavorite', reverseSort )"><img src="images/star_active.png"></a></th>
+                  <th style="text-align: center">
+                      <a href="" ng-click="orderByField='score';reverseSort = !reverseSort;sortBy('score', reverseSort)">Score</a>
+                      <a ng-controller="ModalCtrl" ng-click="toggleSandbox();" tooltip="Sandbox Tool" style="display: inline-flex"><div class="wrench-icon"></div><b class="caret"></b></a>&nbsp;
+                  </th>
+
+                  <th><a href="" ng-click="orderByField='name';reverseSort = !reverseSort;sortBy('name', reverseSort)">Name</a></th>
+
+                  <th><a href="" ng-click="orderByField='Status';reverseSort = !reverseSort;sortBy('Status',reverseSort);">Status</a></th>
+                  <!-- <th><a href="" ng-click="orderByField='Status'; reverseSort = !reverseSort">Status</a></th> -->
+                  <th><a href="" ng-click="orderByField='modifiedOn';reverseSort = !reverseSort;sortBy('modifiedOn', reverseSort)">Date</a></th>
+                  <th>Features</th>
+                  <th>Action</th>
+                  <th>Reports</th>
+                </tr>
+
+                <tr class="" ng-repeat="candidate in candidates | matchName:localSearch:reverseSort"  style="vertical-align: middle">
+                  <td><!--<input type="checkbox" checklist-model="checkboxes.editable" checklist-value="candidate.pk"> -->
+                    <input type="checkbox" ng-change="toggleSelection(candidate.checked,candidate.pk, candidate.araPk,candidate.email)" ng-model="candidate.checked">
+                  </td>
+                  <td><span ng-click="toggleStar($event, candidate.pk)" class="{{candidate.isFavorite}}" tooltip="Mark as Favorite"></span></td>
+                  <td class="score"><span>{{candidate.score| number:1}}</span></td>
+                  <td ng-show="showScoring">1</td>
+                  <td ng-show="showScoring">2</td>
+                  <td ng-show="showScoring">3</td>
+                  <td ng-show="showScoring">4</td>
+
+                  <td>
+                    <span class="title" tooltip="{{candidate.name}}"><a href="#/candidate/{{candidate.key}}/{{candidate.pk}}/{{candidate.araPk}}"> {{candidate.name}}</a></span>
+                  </td>
+                  <td>
+                    <span class="status" tooltip="{{candidate.Status}}">{{candidate.Status}}</span>
+                  </td>
+                  <td>
+                    <span class="modified">{{candidate.modifiedOn | date:'MM/dd/yyyy' }}</span>
+                  </td>
+                  <td>
+                    <ul>
+                      <li class="{{candidate.multiJobFlag}}" tooltip="Applied to Multiple Openings"></li>
+                      <li class="{{candidate.backgroundCheckFlag}}" tooltip="Background Check"></li>
+                      <li class="{{candidate.remarksFlag}}" tooltip="Candidate Comments"></li>
+                      <li class="{{candidate.skillsAssessmentFlag}}" tooltip="Skills Assessment"></li>
+                      <li class="{{candidate.editEnabledFlag}}" tooltip="Edit Enabled"></li>
+                    </ul>
+                  </td>
+                  <td>
+                      <a href="" ng-controller="ModalCtrl" ng-click="openModalComment(candidate.pk,candidate.name)" tooltip="Add/View Comments"><img src="images/add_comment_iconB.png"></a>
+                      <a href="" ng-controller="ModalCtrl" ng-click="openModalWatch(candidate.pk,candidate.name)" tooltip="Watch Candidate"><img src="images/purple_watch_icon_B.png"></a>
+                  </td>
+                  <td>
+                    <span style="display: flex">
+                      <!-- Single button -->
+                      <a ng-click="toggleScreener(candidate.araPk,candidate.name);" tooltip="Screener Questions"><span class="screener"></span></a>
+                      <a ng-click="toggleCharts(candidate.pk,candidate.araPk,candidate.name);" tooltip="Assessment Graphs"><span class="charts"></span></a>
+                      <a ng-click="toggleClips(candidate.attachmentUrl,candidate.name);" tooltip="Attachments"><span class="paperclip"></span></a>
+                      <a ng-click="toggleFirstSteps(candidate.araPk,candidate.name);"><span class="firstSteps" tooltip="FirstStep Report"></span></a>
+                      <a ng-click="toggleInterviewGuide(candidate.araPk,candidate.name);"><span class="interviewguide" tooltip="Interview Guide"></span></a>
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div ng-include="'views/candidates-tab.html'"></div>
+        </div>
+      </div>
+    </div></div>
+  </div>
+</section>
+
+<!-- Comments Modal -->
+<div ng-controller="ModalCtrl">
+  <script type="text/ng-template" id="candidateCommentsModal.html">
+    <div ng-include="'views/modal/comment-modal.html'"></div>
+  </script>
+</div>
+
+<!-- Email Modal -->
+<div ng-controller="ModalCtrl">
+  <script type="text/ng-template" id="candidateEmailModal.html">
+    <div ng-include="'views/modal/email-modal.html'"></div>
+  </script>
+</div>
+
+<!-- Forgot Password -->
+<div ng-controller="ModalCtrl">
+  <script type="text/ng-template" id="forgotPasswordModal.html">
+    <div ng-include="'views/modal/forgot-password.html'"></div>
+  </script>
+</div>
+
+
+<!-- SANDBOX Modal -->
+<div ng-controller="ModalCtrl">
+  <script type="text/ng-template" id="sandboxModal.html">
+    <div ng-include="'views/modal/sandbox-modal.html'"></div>
+  </script>
+</div>
+
+<!-- PRINT Modal -->
+<div ng-controller="ModalCtrl">
+  <script type="text/ng-template" id="printModal.html">
+    <div ng-include="'views/modal/print-modal.html'"></div>
+  </script>
+</div>
+
+<!-- WATCH Modal -->
+<div ng-controller="ModalCtrl">
+  <script type="text/ng-template" id="watchModal.html">
+    <div ng-include="'views/modal/watch-modal.html'"></div>
+  </script>
+</div>
+
+<!-- Help Modal -->
+<div ng-controller="ModalCtrl">
+  <script type="text/ng-template" id="helpModal.html">
+    <div ng-include="'views/modal/help-modal.html'"></div>
+  </script>
+</div>

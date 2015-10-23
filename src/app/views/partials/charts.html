@@ -1,0 +1,58 @@
+<div class="addReporting">
+    <div class="selectList">
+      <p>Asssessment of {{nameTitle}}</p>
+        <div class="scrollable-reporting">
+          <div class="selectListRow selected">
+            <div style="width: 100%;text-align: center;"><img ng-show="showLoading" src="images/loading-iconB-32.gif"></div>
+            <div class="alert alert-danger" ng-show="error" role="alert">
+              <a href="" class="alert-link">A Server Error has occurred.  If this continues, please contact your Kiosite Administrator.</a>
+            </div>
+            <div class="content" >
+              <div primarykey="2710" kra="15" experience="15" selfrating="15" firststep="55" class="quickView">
+                <div class="chart second span6">
+                  <div id="profiler-score"></div>
+                  <progress style="width: 87%;text-align: center; vertical-align: middle; margin-left: 45px;">
+                    <bar ng-repeat="weight in weights" value="weight.value" type="{{weight.type}}">{{weight.value}}%</bar>
+                  </progress>
+                </div>
+
+                <p></p>
+                <!-- TABLE -->
+                <div style="color: #333333; font-size: 18px; fill: #333333; width: 467px;">KRA Traits Scores and Rankings</div>
+                <table class="table table-striped table-bordered table-condensed table-hover" style="font: normal 10px Roboto,arial,sans-serif;">
+                  <thead>
+                  <tr>
+                    <th>Key Result Area</th>
+                    <th>Self Rating</th>
+                    <th>Experience</th>
+                    <th></th>
+                    <th></th>
+                    <th width="375px">Competency Potential Score
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr ng-repeat="trait in kraTraits">
+                    <td>{{trait.trait}}</td>
+                    <td>{{trait.selfRating}}</td>
+                    <td>{{trait.experience}}</td>
+                    <td><span class="badge" style="background-color: green;" ng-show="trait.ranking>0">{{trait.ranking}}</span></td>
+                    <td><span class="badge" style="background-color: yellow;" ng-show="trait.ranking>0">{{trait.ranking}}</span></td>
+                    <td>
+                      <div class="progress">
+                        <div class="progress-bar" style="width:{{trait.score}}%">{{trait.score| number:1}}</div>
+                      </div>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+                <div class="chart first span6">
+                  <div id="first-step-chart"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="overlay"></div>
+      </div>
+    </div>
+</div>

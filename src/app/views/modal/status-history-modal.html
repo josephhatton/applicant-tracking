@@ -1,0 +1,32 @@
+<form name="watchForm" novalidate>
+  <div id="addWatchPopup" style="display: block;">
+    <div class="addWatchList">
+      <div ng-click="cancel();" class="closeCircle"></div>
+      <div class="selectList">
+        <p>Status History</p>
+        <div class="selectListRow selected">
+          <div>
+            <div collapse="collapseNoHistoryWarning" style="margin-left: 10%;width: 80%; text-align: center;font-size: 10px;">
+              <alert type="warning">No Status History</alert>
+            </div>
+          </div>
+          <table ng-show="showTable" class="table table-striped table-bordered table-condensed table-hover">
+            <tr>
+              <th>Date</th>
+              <th>From</th>
+              <th>To</th>
+              <th>User</th>
+            </tr>
+            <tr class="" ng-repeat="history in statusHistory">
+              <td>{{history.date | date:'MM/dd/yyyy'}}</td>
+              <td>{{history.statusFrom}}</td>
+              <td>{{history.statusTo}}</td>
+              <td>{{history.user}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <p class="pull-left" ng-click="cancel();">Cancel</p>
+    </div>
+  </div>
+</form>
